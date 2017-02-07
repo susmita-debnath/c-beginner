@@ -9,8 +9,8 @@ int main()
 
     n = (int)x;
 
-    printf("Value of n is %d/n", n);
-    printf("Value of x is %d/n", x);
+    printf("Value of n is %d\n", n);
+    printf("Value of x is %lf\n", x);
 
     return 0;
 }
