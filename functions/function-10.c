@@ -7,7 +7,7 @@ int main()
 
     printf("What do you want?\n");
 
-    printf("Input a choice - 1, 2, 3,4, 5, 6, 7, 8:\n1. decimal to binary\n2. decimal to octal\n3. binary to decimal\n4. octal to decimal\n5. binary to octal\n6. octal to binary\n7. decimal to hexadecimal\n8. hexadecimal to decimal\n");
+    printf("Input a choice - 1, 2, 3,4, 5, 6, 7, 8, 9, 10:\n1. decimal to binary\n2. decimal to octal\n3. binary to decimal\n4. octal to decimal\n5. binary to octal\n6. octal to binary\n7. decimal to hexadecimal\n8. hexadecimal to decimal\n9. hexadecimal to binary\n10. binary to hexadecimal\n");
     scanf("%d", &option);
 
     switch ( option )
@@ -67,6 +67,22 @@ int main()
             fseek( stdin, 0, SEEK_END );
             result = hexadecimal_to_decimal();
             printf("Here is your decimal result: %d\n", result);
+            break;
+
+        case 9:
+            printf("Please enter your number: ");
+            scanf("%d", &number);
+            result = hexadecimal_to_decimal();
+            result = decimal_to_binary(result);
+            printf("Here is your binary result: %d\n", result);
+            break;
+
+        case 10:
+            printf("Please enter your number: ");
+            scanf("%d", &number);
+            result = binary_to_decimal(number);
+            result = decimal_to_hexadecimal(number);
+            printf("Here is your hexadecimal number: %d\n", result);
             break;
 
         default:
