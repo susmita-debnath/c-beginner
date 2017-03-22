@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <math.h>
 
 int main()
@@ -16,26 +17,15 @@ int main()
 
 int binary_to_decimal(int binary)
 {
-    int decimalResult = 0, remainder, i = 0, reversedNumber = 0, t, n;
+    int decimalResult = 0, remainder, i = 0;
 
-    n = binary;
+    while(binary != 0){
+        remainder = binary % 10;
+        binary /= 10;
 
-    while (n != 0){
-        remainder = n % 10;
-        reversedNumber = reversedNumber * 10 + remainder;
-        n /= 10;
-    }
-
-    t = reversedNumber;
-
-    while ( t != 0){
-        remainder = t % 10;
-        printf("%d\n", remainder);
-        t /= 10;
-    }
-
-    while ( remainder != 0){
-        decimalResult = decimalResult + pow (2, i);
+        if ( remainder != 0){
+            decimalResult = decimalResult + pow (2, i);
+        }
         i++;
     }
 
