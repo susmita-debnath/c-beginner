@@ -1,17 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 
+int decimal_to_binary(int decimal);
+int binary_to_decimal(int binary);
+int decimal_to_octal(int decimal);
+int octal_to_decimal(int octal);
+char* decimal_to_hexadecimal(int number);
+int hexadecimal_to_decimal( char hexadecimal[20] );
+
 int main()
 {
     int result, option, number;
+    char hexa[20];
 
     printf("What do you want?\n");
 
-    printf("Input a choice - 1, 2, 3,4, 5, 6, 7, 8, 9, 10:\n1. decimal to binary\n2. decimal to octal\n3. binary to decimal\n4. octal to decimal\n5. binary to octal\n6. octal to binary\n7. decimal to hexadecimal\n8. hexadecimal to decimal\n9. hexadecimal to binary\n10. binary to hexadecimal\n");
+    printf("Input a choice - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10:\n1. Decimal to Binary\n2. Decimal to Octal\n3. Decimal to Hexadecimal\n4. Binary to decimal\n5. Binary to Octal\n6. Binary to Hexadecimal\n7. Octal to Decimal\n8. Octal to Binary\n9. Octal to Hexadecimal\n10. Hexadecimal to Decimal\n11. Hexadecimal to Binary\n12. Hexadecimal to Octal\n");
     scanf("%d", &option);
 
     switch ( option )
     {
+        // Decimal to Binary
         case 1:
             printf("Please enter your number: ");
             scanf("%d", &number);
@@ -19,6 +28,7 @@ int main()
             printf("Here is your binary result: %d\n", result);
             break;
 
+        // Decimal to Octal
         case 2:
             printf("Please enter your number: ");
             scanf("%d", &number);
@@ -26,29 +36,50 @@ int main()
             printf("Here is your octal result: %d\n", result);
             break;
 
+        // Decimal to Hexa
         case 3:
+            printf("Please enter your number: ");
+            scanf("%d", &number);
+            char *hexaResult = decimal_to_hexadecimal(number);
+            printf( "Here is your hexadecimal result: %s\n", hexaResult );
+            break;
+
+        // Binary to Decimal
+        case 4:
             printf("Please enter your number: ");
             scanf("%d", &number);
             result = binary_to_decimal(number);
             printf("Here is your decimal result: %d\n", result);
             break;
 
-        case 4:
-            printf("Please enter your number: ");
-            scanf("%d", &number);
-            result = octal_to_decimal(number);
-            printf("Here is your decimal result: %d\n", result);
-            break;
-
+        // Binary to Octal
         case 5:
             printf("Please enter your number: ");
             scanf("%d", &number);
             result = binary_to_decimal(number);
             result = decimal_to_octal(result);
+            printf("Here is your octal result: %d\n", result);
+            break;
+
+        // Binary to Hexa
+        case 6:
+            printf("Please enter your number: ");
+            scanf("%d", &number);
+            result = binary_to_decimal(number);
+            char *hexaResult3 = decimal_to_hexadecimal(result);
+            printf("Here is your hexadecimal number: %s\n", hexaResult3);
+            break;
+
+        // Octal to Decimal
+        case 7:
+            printf("Please enter your number: ");
+            scanf("%d", &number);
+            result = octal_to_decimal(number);
             printf("Here is your decimal result: %d\n", result);
             break;
 
-        case 6:
+        // Octal to Binary
+        case 8:
             printf("Please enter your number: ");
             scanf("%d", &number);
             result = octal_to_decimal(number);
@@ -56,33 +87,42 @@ int main()
             printf("Here is your binary result: %d\n", result);
             break;
 
-        case 7:
-            printf("Please enter your number: ");
-            scanf("%d", &number);
-            decimal_to_hexadecimal(number);
-            break;
-
-        case 8:
-            printf("Please enter your number: ");
-            fseek( stdin, 0, SEEK_END );
-            result = hexadecimal_to_decimal();
-            printf("Here is your decimal result: %d\n", result);
-            break;
-
+        // Octal to Hexa
         case 9:
             printf("Please enter your number: ");
             scanf("%d", &number);
-            result = hexadecimal_to_decimal();
+            result = octal_to_decimal(number);
+            char *hexaResult5 = decimal_to_hexadecimal(result);
+            printf("Here is your hexadecimal result: %s\n", hexaResult5);
+            break;
+
+        // Hexa to Decimal
+        case 10:
+            printf("Please enter your number: ");
+            fseek( stdin, 0, SEEK_END );
+            fgets( hexa, sizeof hexa, stdin );
+            result = hexadecimal_to_decimal( hexa );
+            printf("Here is your decimal result: %d\n", result);
+            break;
+
+        // Hexa to Binary
+        case 11:
+            printf("Please enter your number: ");
+            fseek( stdin, 0, SEEK_END );
+            fgets( hexa, sizeof hexa, stdin );
+            result = hexadecimal_to_decimal( hexa );
             result = decimal_to_binary(result);
             printf("Here is your binary result: %d\n", result);
             break;
 
-        case 10:
+        // Hexa to Octal
+        case 12:
             printf("Please enter your number: ");
-            scanf("%d", &number);
-            result = binary_to_decimal(number);
-            result = decimal_to_hexadecimal(number);
-            printf("Here is your hexadecimal number: %d\n", result);
+            fseek( stdin, 0, SEEK_END );
+            fgets( hexa, sizeof hexa, stdin );
+            result = hexadecimal_to_decimal( hexa );
+            result = decimal_to_octal(result);
+            printf("Here is your octal result: %d\n", result);
             break;
 
         default:
@@ -158,9 +198,11 @@ int octal_to_decimal(int octal)
     return octalResult;
 }
 
-int decimal_to_hexadecimal(int decimal)
+char * decimal_to_hexadecimal(int decimal)
 {
-    int remainder, hexadecimalNumber[100], i = 0, t, j;
+    int remainder, hexadecimalNumber[30], i = 0, t, j;
+
+    char *str = (char *) malloc(30);
 
     t = decimal;
 
@@ -178,26 +220,23 @@ int decimal_to_hexadecimal(int decimal)
         t /= 16;
     }
 
-    printf( "Here is your hexadecimal number: " );
+    int k = 0;
     for( j = i - 1; j >= 0; j-- )
     {
-        printf( "%c", hexadecimalNumber[j] );
+        str[k++] = hexadecimalNumber[j];
     }
+    str[k] = '\0';http://susmita.me/wp-content/uploads/2017/03/number-system.png
 
-    return 0;
+    return str;
 }
 
-int hexadecimal_to_decimal()
+int hexadecimal_to_decimal( char hexadecimal[20] )
 {
-    int hexadecimal[20], decimal = 0, i = 0, j, ch, p = 0;
+    int decimal = 0, i = 0, j, ch, p = 0;
 
-    while (( ch = getchar()) != '\n'  ){
-        if (( ch > 47 && ch < 58) || ( ch > 64 && ch < 71)){
-            hexadecimal[i++] = ch;
-        }
-    }
+    i = strlen( hexadecimal );
 
-    for ( j = i - 1; j >= 0; j--){
+    for ( j = i - 2; j >= 0; j--){
         if ( hexadecimal[j] > 57){
             decimal += (hexadecimal[j] - 55) * pow(16, p);
         }
