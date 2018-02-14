@@ -225,7 +225,7 @@ char * decimal_to_hexadecimal(int decimal)
     {
         str[k++] = hexadecimalNumber[j];
     }
-    str[k] = '\0';http://susmita.me/wp-content/uploads/2017/03/number-system.png
+    str[k] = '\0';
 
     return str;
 }
